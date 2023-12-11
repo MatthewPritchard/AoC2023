@@ -35,14 +35,10 @@ def hand_rank(hand):
 
 def cards():
     with open("input.txt") as file:
-        game = []
-        for hand, bid in [line.strip().split(" ") for line in file]:
-            game.append((hand, bid))
+        game = [(hand, bid) for hand, bid in [line.strip().split(" ") for line in file]]
         game.sort(key=lambda h: hand_rank(h[0]))
 
-        total = 0
-        for index, (hand, bid) in enumerate(game):
-            total += (index + 1) * int(bid)
+        total = sum((index + 1) * int(bid) for index, (hand, bid) in enumerate(game))
         print(total)
 
 

@@ -15,12 +15,12 @@ def lexicographic_to_numeric(hand):
 def hand_rank(hand):
     counts = tuple(sorted(Counter(hand).values(), reverse=True))
     hands = [(1, 1, 1, 1, 1),  # High Card
-             (2, 1, 1, 1),  # Pair
-             (2, 2, 1),  # Two pair
-             (3, 1, 1),  # Three of a kind
-             (3, 2),  # Full House
-             (4, 1),  # Four of a Kind
-             (5,)]  # Five of a kind
+             (2, 1, 1, 1),  # .. Pair
+             (2, 2, 1),  # ..... Two pair
+             (3, 1, 1),  # ..... Three of a kind
+             (3, 2),  # ........ Full House
+             (4, 1),  # ........ Four of a Kind
+             (5,)]  # .......... Five of a kind
 
     rank = ((10 ** 10) * (hands.index(counts) + 1)) + lexicographic_to_numeric(hand)
     return rank
@@ -28,14 +28,10 @@ def hand_rank(hand):
 
 def cards():
     with open("input.txt") as file:
-        game = []
-        for hand, bid in [line.strip().split(" ") for line in file]:
-            game.append((hand, bid))
+        game = [(hand, bid) for hand, bid in [line.strip().split(" ") for line in file]]
         game.sort(key=lambda h: hand_rank(h[0]))
 
-        total = 0
-        for index, (hand, bid) in enumerate(game):
-            total += (index + 1) * int(bid)
+        total = sum((index + 1) * int(bid) for index, (hand, bid) in enumerate(game))
         print(total)
 
 
