@@ -1,7 +1,7 @@
 import re
 from functools import reduce
 from itertools import cycle
-from math import gcd
+from math import lcm
 
 
 def network():
@@ -29,7 +29,7 @@ def network():
         current_nodes = temp
         print(current_nodes, step, list(map(lambda n: graph[n], current_nodes)))
         if not current_nodes:
-            return reduce(lambda a, b: abs(a * b) // gcd(a, b), results)
+            return reduce(lcm, results)
 
         current_nodes = list(map(lambda n: graph[n][int(step)], current_nodes))
 
