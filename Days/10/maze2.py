@@ -60,7 +60,7 @@ def next_point(point, full_text, previous):
 
 
 def maze():
-    with open("input.txt") as file:
+    with open("example2.txt") as file:
         full_text: list[list[str]] = list(map(list, file.read().split("\n")))
         start = None
         for index, line in enumerate(full_text):
